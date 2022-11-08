@@ -12,21 +12,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("member")
+@RequestMapping("/member")
 public class MemberController {
 
-    @Autowired
-    MemberService memberService;
+    private final MemberService memberService;
 
     @Autowired
-    MemberRepository memberRepository;
+    public MemberController(MemberService memberService, MemberRepository memberRepository) {
+        this.memberService = memberService;
+    }
 
-    @PostMapping("/login")
+    @PostMapping("/join")
     public String memberLogin(@RequestBody MemberDto memberdto){
         Member member = new Member();
         member.setName(memberdto.getName());
         member.setPassword(memberdto.getPassword());
-        memberService.join(member);
+        if (memberService.join(member)==-1) {
+            return "fail";
+        };
         return "ok_success";
     }
 }
