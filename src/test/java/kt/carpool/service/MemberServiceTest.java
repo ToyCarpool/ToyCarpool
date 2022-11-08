@@ -5,7 +5,6 @@ import kt.carpool.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 
@@ -18,7 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
 
     @Autowired MemberService memberService;
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
 //    @Rollback(value = false)
@@ -49,6 +49,6 @@ class MemberServiceTest {
         //when
         List<Member> memberList = memberService.findMembers();
         //then
-        assertEquals(memberList.get(0).getName(), member1.getName());
+        assertEquals(memberList.get(1).getName(), member1.getName());
     }
 }

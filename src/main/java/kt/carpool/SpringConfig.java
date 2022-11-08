@@ -1,6 +1,5 @@
 package kt.carpool;
 
-import kt.carpool.repository.JpaMemberRepository;
 import kt.carpool.repository.MemberRepository;
 import kt.carpool.service.MemberService;
 import org.springframework.context.annotation.Bean;
