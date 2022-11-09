@@ -12,12 +12,14 @@ function Login() {
         setPassword(e.target.value)
     }
     const buttonClick = () => {
-        axios.post('member/join', {
+        axios.post('member/signup', {
             name: username,
             password: password
         }).then(response => {
+
             if (response.data === "ok_success") {
                 console.log("로그인 성공")
+                // 여기랑 밑에 둘 다 중복되니까 if else 밖으로
                 setUsername('')
                 setPassword('')
             } else {

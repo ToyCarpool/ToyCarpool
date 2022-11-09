@@ -18,18 +18,28 @@ public class MemberController {
     private final MemberService memberService;
 
     @Autowired
-    public MemberController(MemberService memberService, MemberRepository memberRepository) {
+    public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 
-    @PostMapping("/join")
-    public String memberLogin(@RequestBody MemberDto memberdto){
+    @PostMapping("/signup")
+    public String SingUp(@RequestBody MemberDto memberdto){
         Member member = new Member();
         member.setName(memberdto.getName());
         member.setPassword(memberdto.getPassword());
-        if (memberService.join(member)==-1) {
+        if (memberService.signUp(member)==-1) {
             return "fail";
         };
         return "ok_success";
+    }
+
+    @PostMapping("/signin")
+    public String SignIn(@RequestBody MemberDto memberdto){
+        Member member = new Member();
+        member.setName(memberdto.getName());
+        member.setPassword(memberdto.getPassword());
+        Integer status = memberService.signIn(member);
+        if(status == 0) return "ok_success";
+        else return "fail";
     }
 }

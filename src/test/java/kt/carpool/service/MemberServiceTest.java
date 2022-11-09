@@ -5,6 +5,7 @@ import kt.carpool.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 
@@ -27,12 +28,20 @@ class MemberServiceTest {
         Member member = new Member();
         member.setName("hello33");
         //when
-        Long saveId = memberService.join(member);
+        Long saveId = memberService.signUp(member);
         //then
         Member findMember = memberRepository.findById(saveId).get();
         assertEquals(member.getName(), findMember.getName());
     }
 
+    @Test
+    @Rollback(value = false)
+    void 로그인() throws Exception{
+        Member member = new Member();
+        member.setName("hello3");
+        member.setPassword("333");
+        memberRepository.save(member);
+    }
     @Test
     void 멤버불러오기() {
         //given
@@ -42,13 +51,13 @@ class MemberServiceTest {
         member2.setName("spring2");
         Member member3 = new Member();
         member3.setName("spring3");
-        memberService.join(member1);
-        memberService.join(member2);
-        memberService.join(member3);
+        memberService.signUp(member1);
+        memberService.signUp(member2);
+        memberService.signUp(member3);
 
         //when
         List<Member> memberList = memberService.findMembers();
         //then
-        assertEquals(memberList.get(1).getName(), member1.getName());
+        assertEquals(memberList.get(0).getName(), member1.getName());
     }
 }
