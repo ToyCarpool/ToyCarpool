@@ -62,4 +62,30 @@ class BoardServiceTest {
                 .build();
         boardRepository.save(board2);
     }
+
+    @Test
+    @Rollback(value = false)
+    void 게시글가져오기(){
+        Board board1 = new Board().builder()
+                .user_id(2L)
+                .title("제목")
+                .peopleNo(3)
+                .startTime("3시 10분")
+                .cost(3000)
+                .description("나랑 같이 갈 사람")
+                .open(Boolean.TRUE)
+                .build();
+        Board board2 = new Board().builder()
+                .user_id(2L)
+                .title("제목2")
+                .peopleNo(3)
+                .startTime("34시 110분")
+                .cost(3000)
+                .description("나요나")
+                .open(Boolean.TRUE)
+                .build();
+        boardRepository.save(board1);
+        boardRepository.save(board2);
+        Assertions.assertEquals(2,boardRepository.findAll().size());
+    }
 }
