@@ -25,39 +25,49 @@ class MemberServiceTest {
 //    @Rollback(value = false)
     void 회원가입() throws Exception{
         //given
-        Member member = new Member();
-        member.setName("hello33");
+        Member member = new Member().builder()
+                .username("hello")
+                .password("3333")
+                .name("gyeonghak")
+                .department("solutionDevelop")
+                .build();
         //when
         Long saveId = memberService.signUp(member);
         //then
         Member findMember = memberRepository.findById(saveId).get();
-        assertEquals(member.getName(), findMember.getName());
+        assertEquals(member.getUsername(), findMember.getUsername());
     }
 
     @Test
-    @Rollback(value = false)
     void 로그인() throws Exception{
-        Member member = new Member();
-        member.setName("hello3");
-        member.setPassword("333");
+        //given
+        Member member = new Member().builder()
+                .username("hello2")
+                .password("123")
+                .build();
         memberRepository.save(member);
+        assertEquals(0,memberService.signIn(member));
     }
     @Test
     void 멤버불러오기() {
         //given
-        Member member1 = new Member();
-        member1.setName("spring1");
-        Member member2 = new Member();
-        member2.setName("spring2");
-        Member member3 = new Member();
-        member3.setName("spring3");
-        memberService.signUp(member1);
-        memberService.signUp(member2);
-        memberService.signUp(member3);
-
+        Member member1 = new Member().builder()
+                .username("hello3")
+                .password("123")
+                .name("hani")
+                .department("gogo")
+                .build();
+        Member member2 = new Member().builder()
+                .username("hello4")
+                .password("123")
+                .name("seulgi")
+                .department("red")
+                .build();
+        memberRepository.save(member1);
+        memberRepository.save(member2);
         //when
         List<Member> memberList = memberService.findMembers();
         //then
-        assertEquals(memberList.get(0).getName(), member1.getName());
+        assertEquals(memberList.get(0).getUsername(), member1.getUsername());
     }
 }

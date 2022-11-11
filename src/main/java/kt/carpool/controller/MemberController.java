@@ -24,9 +24,12 @@ public class MemberController {
 
     @PostMapping("/signup")
     public String SingUp(@RequestBody MemberDto memberdto){
-        Member member = new Member();
-        member.setName(memberdto.getName());
-        member.setPassword(memberdto.getPassword());
+        Member member = new Member().builder()
+                .username(memberdto.getUsername())
+                .password(memberdto.getPassword())
+                .name(memberdto.getName())
+                .department(memberdto.getDepartment())
+                .build();
         if (memberService.signUp(member)==-1) {
             return "fail";
         };
@@ -35,9 +38,10 @@ public class MemberController {
 
     @PostMapping("/signin")
     public String SignIn(@RequestBody MemberDto memberdto){
-        Member member = new Member();
-        member.setName(memberdto.getName());
-        member.setPassword(memberdto.getPassword());
+        Member member = new Member().builder()
+                .name(memberdto.getUsername())
+                .password(memberdto.getPassword())
+                .build();
         Integer status = memberService.signIn(member);
         if(status == 0) return "ok_success";
         else return "fail";

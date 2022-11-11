@@ -1,6 +1,5 @@
 package kt.carpool.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,10 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDto {
+public class VocBoardDto {
+    private Long user_id;
 
-    private String username;
-    private String password;
-    private String name;
-    private String department;
+    private String title;
+    private String description;
+    private Boolean open;
 }
