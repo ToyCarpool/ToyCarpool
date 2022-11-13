@@ -39,7 +39,7 @@ public class MemberController {
     @PostMapping("/signin")
     public String SignIn(@RequestBody MemberDto memberdto){
         Member member = new Member().builder()
-                .name(memberdto.getUsername())
+                .username(memberdto.getUsername())
                 .password(memberdto.getPassword())
                 .build();
         Integer status = memberService.signIn(member);

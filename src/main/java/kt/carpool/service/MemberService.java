@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Transactional
@@ -35,8 +36,11 @@ public class MemberService {
         // [로그인 성공 : 0, 비밀번호 오류 : 1, 없는 아이디 : 2]
         Optional<Member> compareMember = memberRepository.findByUsername(member.getUsername());
         if(compareMember.isPresent()){
-            if(compareMember.get().getPassword() == member.getPassword()) return 0;
-            else return 1;
+            if (Objects.equals(compareMember.get().getPassword(), member.getPassword())) {
+                return 0;
+            } else {
+                return 1;
+            }
         }
         else return 2;
     }
