@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -15,11 +17,16 @@ import javax.persistence.*;
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MEMBER_ID")
     private Long id;
     private String username;
     private String password;
     private String name;
     private String department;
+
+    @OneToMany(mappedBy = "member")
+    private final List<Board> boards = new ArrayList<Board>();;
+
 
     @Builder
     public Member(Long id, String username, String password, String name, String department) {
