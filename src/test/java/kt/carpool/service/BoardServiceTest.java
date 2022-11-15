@@ -1,7 +1,9 @@
 package kt.carpool.service;
 
 import kt.carpool.domain.Board;
+import kt.carpool.domain.Member;
 import kt.carpool.repository.BoardRepository;
+import kt.carpool.repository.MemberRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +21,23 @@ class BoardServiceTest {
 
     @Autowired
     BoardRepository boardRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
 
     @Test
     @Rollback(value = false)
     void write() {
+        Member member = new Member().builder()
+                .password("123")
+                .username("cho")
+                .department("AICC구독솔루션팀")
+                .name("조영래")
+                .build();
+        memberRepository.save(member);
+
         Board board = new Board().builder()
-                .user_id(2L)
+                .member(member)
                 .title("제목")
                 .peopleNo(3)
                 .startTime("3시 10분")
@@ -34,14 +46,23 @@ class BoardServiceTest {
                 .open(Boolean.TRUE)
                 .build();
         boardRepository.save(board);
-        Assertions.assertEquals("제목",boardRepository.findAllByUserId(board.getUser_id()).get(0).getTitle());
+        Assertions.assertEquals("제목",boardRepository.findByMember(board.getMember()).get(0).getTitle());
     }
 
     @Test
     @Rollback(value = false)
     void edit() {
+        Member member = new Member().builder()
+                .password("123")
+                .username("cho")
+                .department("AICC구독솔루션팀")
+                .name("조영래")
+                .build();
+        memberRepository.save(member);
+
+
         Board board1 = new Board().builder()
-                .user_id(2L)
+                .member(member)
                 .title("제목")
                 .peopleNo(3)
                 .startTime("3시 10분")
@@ -50,9 +71,11 @@ class BoardServiceTest {
                 .open(Boolean.TRUE)
                 .build();
         boardRepository.save(board1);
+
+
+
         Board board2 = new Board().builder()
-                .id(board1.getId())
-                .user_id(2L)
+                .member(member)
                 .title("제목r333333")
                 .peopleNo(3)
                 .startTime("3시 10분")
@@ -61,13 +84,28 @@ class BoardServiceTest {
                 .open(Boolean.TRUE)
                 .build();
         boardRepository.save(board2);
+
+        // 이 게시물의 주인이 쓴 모든 글 조회
+        System.out.println("이 게시물의 주인이 쓴 모든 글 조회");
+        for (Board board :board2.getMember().getBoards()) {
+            System.out.println("board = " + board.getTitle());
+        }
     }
 
     @Test
     @Rollback(value = false)
     void 게시글가져오기(){
+        Member member = new Member().builder()
+                .password("123")
+                .username("cho")
+                .department("AICC구독솔루션팀")
+                .name("조영래")
+                .build();
+        memberRepository.save(member);
+
+
         Board board1 = new Board().builder()
-                .user_id(2L)
+                .member(member)
                 .title("제목")
                 .peopleNo(3)
                 .startTime("3시 10분")
@@ -75,8 +113,10 @@ class BoardServiceTest {
                 .description("나랑 같이 갈 사람")
                 .open(Boolean.TRUE)
                 .build();
+
+
         Board board2 = new Board().builder()
-                .user_id(2L)
+                .member(member)
                 .title("제목2")
                 .peopleNo(3)
                 .startTime("34시 110분")
@@ -86,6 +126,6 @@ class BoardServiceTest {
                 .build();
         boardRepository.save(board1);
         boardRepository.save(board2);
-        Assertions.assertEquals(2,boardRepository.findAll().size());
+        Assertions.assertEquals(4,boardRepository.findAll().size());
     }
 }

@@ -3,6 +3,7 @@ package kt.carpool.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.apache.catalina.User;
 
 import javax.persistence.*;
 
@@ -13,9 +14,13 @@ import javax.persistence.*;
 public class Board {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "BOARD_ID")
     private Long id;
     // 외래키 어노테이션 잘 모르겠음
-    private Long user_id;
+
+    @ManyToOne
+    @JoinColumn(name="MEMBER_ID")
+    private Member member;
 
     private String title;
     private Integer peopleNo;
@@ -24,17 +29,23 @@ public class Board {
     private String description;
     private Boolean open;
     @Builder
-    public Board(Long id, Long user_id, String title, Integer peopleNo, String startTime, Integer cost, String description, Boolean open) {
+    public Board(Long id, Member member, String title, Integer peopleNo, String startTime, Integer cost, String description, Boolean open) {
         this.id = id;
-        this.user_id = user_id;
+        this.member = member;
         this.title = title;
         this.peopleNo = peopleNo;
         this.startTime = startTime;
         this.cost = cost;
         this.description = description;
         this.open = open;
+
+        setMember(member);
     }
 
+    public void setMember(Member member) {
+        this.member = member;
+        member.getBoards().add(this);
+    }
 
 
 }
