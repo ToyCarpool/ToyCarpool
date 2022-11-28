@@ -1,6 +1,7 @@
 package kt.carpool.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,5 +37,4 @@ public class Member {
         this.name = name;
         this.department = department;
     }
-
 }
