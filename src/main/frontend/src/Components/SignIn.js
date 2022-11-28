@@ -13,7 +13,7 @@ export default function SignIn() {
         setPassword(e.target.value)
     }
     const buttonClick = () => {
-        axios.post('member/signin', {
+        axios.post('api/member/signin', {
             username: username,
             password: password
         }).then(response => {

@@ -18,7 +18,7 @@ public class Board {
     private Long id;
     // 외래키 어노테이션 잘 모르겠음
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="MEMBER_ID")
     private Member member;
 
@@ -38,8 +38,10 @@ public class Board {
         this.cost = cost;
         this.description = description;
         this.open = open;
+        if (member!=null) {
+            setMember(member);
 
-        setMember(member);
+        }
     }
 
     public void setMember(Member member) {
