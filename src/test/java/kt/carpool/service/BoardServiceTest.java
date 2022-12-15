@@ -1,8 +1,6 @@
 package kt.carpool.service;
 
-import kt.carpool.domain.Board;
 import kt.carpool.domain.Member;
-import kt.carpool.repository.BoardRepository;
 import kt.carpool.repository.MemberRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
