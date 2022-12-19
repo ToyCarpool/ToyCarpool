@@ -1,7 +1,12 @@
 package kt.carpool.dto;
 
+import kt.carpool.domain.Board;
 import kt.carpool.domain.Member;
+import kt.carpool.repository.MemberRepository;
 import lombok.*;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Getter
 @Setter
