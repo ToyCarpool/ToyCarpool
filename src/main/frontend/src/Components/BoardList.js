@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 export default function Board() {
     const [posts, setPosts] = useState(null)
     const [page, setPage] = useState(1) 
     const [pageCount, setPageCount] = useState(null)
-    
-    const navigate = useNavigate();
+    const history = useHistory();
 
-    const handleClick = (id) => {
-      // 👇️ navigate programmatically
-      navigate(`${id}`);
-    };
 
     const makeButton = () => {
         let arr = []
@@ -61,13 +56,12 @@ export default function Board() {
                 </div>
                 {posts.map(post=>{
                     return(
-                        <div className='board_table--item' onClick={()=>handleClick(post.id)}>
+                        <div className='board_table--item' onClick={history.push(`{/api/board/${post.id}`)}>
                             <div className='board_table--item--num'>{post.id}</div>
                             <div className='board_table--item--title'>{post.title}</div>
                             <div className='board_table--item--peopleNo'>{post.peopleNo}</div>
                             <div className='board_table--item--cost'>{post.cost}</div>
                         </div>
-                        
                     )
                 })}
             </div>

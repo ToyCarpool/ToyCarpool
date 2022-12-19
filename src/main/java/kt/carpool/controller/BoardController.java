@@ -7,6 +7,8 @@ import kt.carpool.dto.BoardDto;
 import kt.carpool.repository.BoardRepository;
 import kt.carpool.repository.MemberRepository;
 import kt.carpool.service.BoardService;
+import kt.carpool.utils.BoardUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,13 +28,19 @@ public class BoardController {
     private final BoardService boardService;
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
+    private final BoardUtils boardUtils;
 
     @Autowired
-    public BoardController(BoardService boardService, MemberRepository memberRepository, BoardRepository boardRepository) {
+    public BoardController(BoardService boardService, BoardRepository boardRepository, MemberRepository memberRepository, BoardUtils boardUtils) {
         this.boardService = boardService;
-        this.memberRepository = memberRepository;
         this.boardRepository = boardRepository;
+        this.memberRepository = memberRepository;
+        this.boardUtils = boardUtils;
     }
+
+
+    ModelMapper modelMapper = new ModelMapper();
+
 
     @GetMapping("/list")
     public ResponseEntity getList(Pageable pageable){
@@ -44,17 +52,15 @@ public class BoardController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getDetail(@PathVariable Long id) {
+        BoardDto postDto = boardUtils.toDto(boardRepository.findById(id).get());
+        return new ResponseEntity<>(postDto, HttpStatus.OK);
+    }
+
     @PostMapping("/write")
     public void writeArticle(@RequestBody BoardDto boardDto) {
-        Board board = Board.builder()
-                .member(memberRepository.findById(boardDto.getMember_id()).get())
-                .title(boardDto.getTitle())
-                .peopleNo(boardDto.getPeopleNo())
-                .startTime(boardDto.getStartTime())
-                .cost(boardDto.getCost())
-                .description(boardDto.getDescription())
-                .open(boardDto.getOpen())
-                .build();
+        Board board = boardUtils.toEntity(boardDto);
         boardService.write(board);
     }
 

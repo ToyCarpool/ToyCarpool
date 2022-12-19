@@ -1,8 +1,6 @@
 package kt.carpool.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.apache.catalina.User;
 
 import javax.persistence.*;
@@ -10,6 +8,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "BOARD")
 public class Board {
 
