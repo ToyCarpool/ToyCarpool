@@ -44,9 +44,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public ResponseEntity getList(Pageable pageable){
-        pageable = PageRequest.of(pageable.getPageNumber()-1,
-                pageable.getPageSize(),
-                Sort.by(Sort.Direction.DESC, "id"));
+
         Page<BoardDto> posts = boardService.getList(pageable);
         System.out.println("posts = " + posts);
         return new ResponseEntity<>(posts, HttpStatus.OK);
