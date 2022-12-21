@@ -28,7 +28,7 @@ export default function Board() {
 
     const fetchData = async (page, size) => {
         try{
-            const response = await axios.get(`api/board/list?page=${page}&size=${size}`)
+            const response = await axios.get(`api/board/list?page=${page-1}&size=${size}`)
             setPosts(response.data.content)
             setPageCount(response.data.totalPages)
             console.log(response.data)

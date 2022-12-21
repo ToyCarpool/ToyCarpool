@@ -11,7 +11,7 @@ export default function BoardEdit() {
     const [peopleNo, setPeopleNo] = useState(0)
     const [member_id, setMemberId] = useState(0)
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const handleTitle = (e) => {
         setTitle(e.target.value)
@@ -47,6 +47,7 @@ export default function BoardEdit() {
             navigate(`/Board/${response.data.id}`)
         } catch(e) {
             console.log(e)
+            alert(e)
         }
     }    
     return (
