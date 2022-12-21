@@ -21,11 +21,12 @@ public class WebSecurityConfig {
                 .authorizeRequests((authz) ->{
                     try {
                         authz
+                                .antMatchers("/api/member/user/**").authenticated()
                                 .anyRequest().permitAll()
                                 .and()
                                 .formLogin()
                                 .loginPage("/api/member/loginForm")
-                                .loginPage("/login")
+                                .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/");
                     } catch (Exception e) {
                         throw new RuntimeException(e);

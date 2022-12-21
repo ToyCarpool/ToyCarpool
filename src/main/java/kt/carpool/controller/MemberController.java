@@ -8,11 +8,13 @@ import kt.carpool.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/member")
 public class MemberController {
@@ -43,7 +45,7 @@ public class MemberController {
     public String join(MemberDto memberDto){
         Member member = Member.builder() // 여기서 new가 왜 안되지..?
                 .username(memberDto.getUsername())
-                .password(memberDto.getPassword())
+                .password(bCryptPasswordEncoder.encode(memberDto.getPassword()))
                 .name(memberDto.getName())
                 .email(memberDto.getEmail())
                 .role(memberDto.getRole())
@@ -52,7 +54,7 @@ public class MemberController {
                 .createDate(memberDto.getCreateDate())
                 .build();
         memberRepository.save(member);
-        return "redirect:/loginForm";
+        return "redirect:/api/member/loginForm";
     }
 
 //    @PostMapping("/signup")
