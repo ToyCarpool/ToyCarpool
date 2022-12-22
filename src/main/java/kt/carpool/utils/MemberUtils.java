@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 public class MemberUtils {
     public Member toEntity(MemberDto dto) {
         return new Member().builder()
-                .id(dto.getId())
                 .username(dto.getUsername())
                 .password(dto.getPassword())
                 .name(dto.getName())

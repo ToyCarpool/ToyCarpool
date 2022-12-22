@@ -44,9 +44,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public ResponseEntity getList(Pageable pageable){
-        pageable = PageRequest.of(pageable.getPageNumber()-1,
-                pageable.getPageSize(),
-                Sort.by(Sort.Direction.DESC, "id"));
+
         Page<BoardDto> posts = boardService.getList(pageable);
         System.out.println("posts = " + posts);
         return new ResponseEntity<>(posts, HttpStatus.OK);
@@ -59,9 +57,17 @@ public class BoardController {
     }
 
     @PostMapping("/write")
-    public void writeArticle(@RequestBody BoardDto boardDto) {
-        Board board = boardUtils.toEntity(boardDto);
-        boardService.write(board);
+    public ResponseEntity writeArticle(@RequestBody BoardDto boardDto) {
+        System.out.println("boardDto = " + boardDto);
+
+        try {
+            Board board = boardUtils.toEntity(boardDto);
+            System.out.println("board = " + board);
+            Board board1 = boardService.write(board);
+            return new ResponseEntity<>(boardUtils.toDto(board1), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

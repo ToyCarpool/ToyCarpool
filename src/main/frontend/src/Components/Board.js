@@ -7,11 +7,11 @@ export default function Board() {
     const [page, setPage] = useState(1) 
     const [pageCount, setPageCount] = useState(null)
     
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const handleClick = (id) => {
       // 👇️ navigate programmatically
-      navigate(`${id}`);
+      navigate(`${id}`)
     };
 
     const makeButton = () => {

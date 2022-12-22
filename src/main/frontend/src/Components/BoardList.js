@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { Link, useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Board() {
     const [posts, setPosts] = useState(null)
     const [page, setPage] = useState(1) 
     const [pageCount, setPageCount] = useState(null)
-    const history = useHistory();
+    
+    const navigate = useNavigate();
 
+    const handleClick = (id) => {
+      // 👇️ navigate programmatically
+      navigate(`${id}`);
+    };
 
     const makeButton = () => {
         let arr = []
@@ -23,7 +28,7 @@ export default function Board() {
 
     const fetchData = async (page, size) => {
         try{
-            const response = await axios.get(`api/board/list?page=${page}&size=${size}`)
+            const response = await axios.get(`api/board/list?page=${page-1}&size=${size}`)
             setPosts(response.data.content)
             setPageCount(response.data.totalPages)
             console.log(response.data)
@@ -56,19 +61,20 @@ export default function Board() {
                 </div>
                 {posts.map(post=>{
                     return(
-                        <div className='board_table--item' onClick={history.push(`{/api/board/${post.id}`)}>
+                        <div className='board_table--item' onClick={()=>handleClick(post.id)}>
                             <div className='board_table--item--num'>{post.id}</div>
                             <div className='board_table--item--title'>{post.title}</div>
                             <div className='board_table--item--peopleNo'>{post.peopleNo}</div>
                             <div className='board_table--item--cost'>{post.cost}</div>
                         </div>
+                        
                     )
                 })}
             </div>
             <div className='button_box'>
             {makeButton()}
             </div>
-            
+            <div onClick={()=>navigate("/Board/edit")}>글쓰기</div>
         </div>
     );
 }

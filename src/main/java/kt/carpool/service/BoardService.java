@@ -31,8 +31,8 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public void write(Board board){
-        boardRepository.save(board);
+    public Board write(Board board){
+        return boardRepository.save(board);
     }
 
     public Page<BoardDto> getList(Pageable pageable){

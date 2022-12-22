@@ -3,8 +3,8 @@ import axios from "axios";
 
 export default function SignIn() {
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleUsername = (e) => {
         setUsername(e.target.value)
