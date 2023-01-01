@@ -52,7 +52,6 @@ class BoardUtilsTest {
     @Test
     void 엔터티변환() {
         Member member = new Member().builder()
-                .id(1L)
                 .password("123")
                 .username("cho")
                 .department("AICC구독솔루션팀")

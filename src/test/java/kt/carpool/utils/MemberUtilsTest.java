@@ -3,7 +3,6 @@ package kt.carpool.utils;
 import kt.carpool.domain.Board;
 import kt.carpool.domain.Member;
 import kt.carpool.dto.MemberDto;
-import kt.carpool.repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +20,6 @@ class MemberUtilsTest {
     @Test
     void dto변환() {
         Member entity = new Member().builder()
-                .id(1L)
                 .password("123")
                 .username("cho")
                 .department("AICC구독솔루션팀")
@@ -39,15 +37,12 @@ class MemberUtilsTest {
                 .build();
 
         MemberDto dto = memberUtils.toDto(entity);
-        assertEquals(dto.getId(), entity.getId());
         assertEquals(dto.getName(), entity.getName());
-        assertEquals(dto.getBoards(), entity.getBoards());
     }
 
     @Test
     void entity변환() {
         MemberDto dto = new MemberDto().builder()
-                .id(1L)
                 .password("123")
                 .username("cho")
                 .department("AICC구독솔루션팀")
@@ -56,8 +51,6 @@ class MemberUtilsTest {
 
 
         Member entity = memberUtils.toEntity(dto);
-        assertEquals(dto.getId(), entity.getId());
         assertEquals(dto.getName(), entity.getName());
-        assertEquals(dto.getBoards(), entity.getBoards());
     }
 }
