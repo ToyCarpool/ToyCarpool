@@ -13,7 +13,6 @@ public class MemberUtils {
     public Member toEntity(MemberDto dto) {
         return new Member().builder()
                 .username(dto.getUsername())
-                .password(dto.getPassword())
                 .name(dto.getName())
                 .department(dto.getDepartment())
                 .build();

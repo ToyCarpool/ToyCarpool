@@ -58,6 +58,8 @@ class BoardUtilsTest {
                 .name("조영래")
                 .build();
 
+        memberRepository.save(member);
+
         BoardDto dto = new BoardDto().builder()
                 .member(member)
                 .title("제목")

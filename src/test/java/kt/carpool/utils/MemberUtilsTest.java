@@ -43,7 +43,6 @@ class MemberUtilsTest {
     @Test
     void entity변환() {
         MemberDto dto = new MemberDto().builder()
-                .password("123")
                 .username("cho")
                 .department("AICC구독솔루션팀")
                 .name("조영래")

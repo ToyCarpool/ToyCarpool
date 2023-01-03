@@ -5,8 +5,6 @@ import kt.carpool.config.auth.PrincipalDetails;
 import kt.carpool.domain.Member;
 import kt.carpool.dto.MemberDto;
 import kt.carpool.repository.MemberRepository;
-//import kt.carpool.service.VerifyRecaptchaService;
-import kt.carpool.service.VerifyRecaptchaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -43,10 +39,8 @@ public class MemberController {
     public String joinForm() { return "joinForm";}
     @GetMapping("/user")
     public @ResponseBody ResponseEntity member(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        System.out.println("123 = " + 123);
-        System.out.println("principalDetails.getUsername() = " + principalDetails.getMember().get().getUsername());
-        return new ResponseEntity(principalDetails.getMember().get().getUsername(), HttpStatus.OK);
-//        return new ResponseEntity(principalDetails.getMember().get().getBoards(), HttpStatus.OK);
+        System.out.println("principalDetails.getUsername() = " + principalDetails.getMember());
+        return new ResponseEntity(principalDetails.getMember().get().getBoards(), HttpStatus.OK);
     }
 
     @PostMapping("/join")
@@ -70,7 +64,7 @@ public class MemberController {
     public int VerifyRecaptchaService(HttpServletRequest request){
         VerifyRecaptchaService.setSecretKey("6LfHFZojAAAAAMcVup6lruKfYtz47io0fafrQ8fQ");
         String gRecaptchaResponse = request.getParameter("recaptcha");
-        
+
         try{
             if(VerifyRecaptchaService.verify(gRecaptchaResponse))
                 return 0; // 성공
