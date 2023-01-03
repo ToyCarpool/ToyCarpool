@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberDto {
+    private Long id;
     private String username;
     private String password;
 
@@ -24,7 +25,7 @@ public class MemberDto {
     private String provider;
     private String providerId;
     @Builder
-    public MemberDto(String username, String password, String name, String email, String role, String provider, String providerId, String department, Timestamp createDate) {
+    public MemberDto(Long id, String username, String password, String name, String email, String role, String provider, String providerId, String department, Timestamp createDate) {
         this.username = username;
         this.password = password;
         this.name = name;

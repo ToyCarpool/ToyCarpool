@@ -39,7 +39,6 @@ public class Board {
         this.open = open;
         if (member!=null) {
             setMember(member);
-
         }
     }
 

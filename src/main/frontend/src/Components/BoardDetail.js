@@ -5,7 +5,7 @@ import axios from "axios"
 
 export default function BoardDetail() {
     const [post, setPost] = useState(null)
-    const { id } = useParams();
+    const { id } = useParams()
 
     const fetchData = async () => {
         try{
@@ -18,14 +18,16 @@ export default function BoardDetail() {
         }
     }
     useEffect(() => {
-        fetchData()
-    }, [])    
+        async function fetching() {
+            await fetchData()
+        }
+        fetching()
+    }, [])
 
-    if (!post) {
-        return null
-    }
+
     return (
         <div className='board_box'>
+            {post &&
             <div>
                 {post.cost}<br/>
                 {post.description}<br/>
@@ -35,8 +37,8 @@ export default function BoardDetail() {
                 {post.peopleNo}<br/>
                 {post.startTime}<br/>
                 {post.title}
-                
-            </div>
+            </div>}
+
         </div>
     );
 }

@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class BoardUtils {
@@ -18,9 +19,9 @@ public class BoardUtils {
         this.memberRepository = memberRepository;
     }
 
+    @Transactional
     public Board toEntity(BoardDto dto) {
         Board entity = new Board().builder()
-                .id(dto.getId())
                 .member(memberRepository.findById(dto.getMember_id()).orElse(null))
                 .title(dto.getTitle())
                 .startTime(dto.getStartTime())

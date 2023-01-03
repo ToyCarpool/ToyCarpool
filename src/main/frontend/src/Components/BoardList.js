@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import axios from "axios"
+import { useNavigate } from 'react-router-dom'
+import { getUser } from "../Utils/authentication";
 
-export default function Board() {
+export default function BoardList() {
     const [posts, setPosts] = useState(null)
     const [page, setPage] = useState(1) 
     const [pageCount, setPageCount] = useState(null)
+    const [userData, setUserData] = useState(null)
     
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const handleClick = (id) => {
-      // 👇️ navigate programmatically
-      navigate(`${id}`);
+      navigate(`${id}`)
     };
 
     const makeButton = () => {
@@ -36,11 +37,17 @@ export default function Board() {
             console.log(e)
         }
     }
+    const fetchUserData = async () => {
+        const userRes = await getUser()
+        setUserData(userRes);
+    }
 
     useEffect(() => {
         fetchData(page, 3)
+        fetchUserData();
     }, [])
-    
+
+
     useEffect(() => {
         fetchData(page, 3)
     }, [page])
@@ -74,7 +81,7 @@ export default function Board() {
             <div className='button_box'>
             {makeButton()}
             </div>
-            <div onClick={()=>navigate("/Board/edit")}>글쓰기</div>
+            {userData && <div onClick={()=>navigate("/Board/edit")}>글쓰기</div>}
         </div>
     );
 }

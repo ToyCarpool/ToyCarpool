@@ -5,6 +5,7 @@ import kt.carpool.config.auth.PrincipalDetails;
 import kt.carpool.domain.Member;
 import kt.carpool.dto.MemberDto;
 import kt.carpool.repository.MemberRepository;
+import kt.carpool.service.VerifyRecaptchaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Optional;
 

@@ -1,47 +1,52 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState,useEffect } from 'react';
+import { useNavigate, redirect } from 'react-router-dom';
 
 import axios from "axios";
+import {getUser} from "../Utils/authentication";
 
 export default function BoardEdit() {
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
-    const [destination, setDestination] = useState("")
-    const [cost, setCost] = useState(0)
-    const [peopleNo, setPeopleNo] = useState(0)
-    const [member_id, setMemberId] = useState(0)
-
     const navigate = useNavigate()
 
-    const handleTitle = (e) => {
-        setTitle(e.target.value)
+    const [form, setForm] = useState({
+        title:"",
+        description:"",
+        destination:"",
+        cost:0,
+        peopleNo:0,
+        member_id:0
+    });
+    const [userData, setUserData] = useState(null)
+
+    const fetchUserData = async () => {
+        const userRes = await getUser()
+        setUserData(userRes);
     }
 
-    const handleDescription = (e) => {
-        setDescription(e.target.value)
-    }    
-
-    const handleDestination = (e) => {
-        setDestination(e.target.value)
-    }    
-    
-    const handleCost = (e) => {
-        setCost(e.target.value)
+    const handleForm = (e) => {
+        setForm({
+            ...form, [e.target.name] :e.target.value
+        })
     }
 
-    const handlePeopleNo = (e) => {
-        setPeopleNo(e.target.value)
-    }
+    useEffect(() => {
+        async function noUserRedirect() {
+            await fetchUserData();
+            if (userData) {
+                return redirect("/api/member/loginForm");
+            }
+        }
+        noUserRedirect()
+    }, [])
 
     const sendPost = async () => {
         try{
             const response = await axios.post(`/api/board/write`, {
-                title,
-                description,
-                destination,
-                cost,
-                peopleNo,
-                member_id
+                title : form.title,
+                description : form.description,
+                destination : form.destination,
+                cost : form.cost,
+                peopleNo : form.peopleNo,
+                member_id : userData.data.id
             })
             console.log(response)
             navigate(`/Board/${response.data.id}`)
@@ -52,11 +57,11 @@ export default function BoardEdit() {
     }    
     return (
         <div>
-            제목:<input value={title} onChange={handleTitle}/>
-            내용:<input value={description} onChange={handleDescription}/>
-            목적지:<input value={destination} onChange={handleDestination}/>
-            가격:<input value={cost} onChange={handleCost}/>
-            모을 사람 수:<input value={peopleNo} onChange={handlePeopleNo}/>
+            제목:<input name="title" value={form.title} onChange={handleForm}/>
+            내용:<input name="description" value={form.description} onChange={handleForm}/>
+            목적지:<input name="destination" value={form.destination} onChange={handleForm}/>
+            가격:<input name="cost" value={form.cost} onChange={handleForm}/>
+            모을 사람 수:<input name="peopleNo" value={form.peopleNo} onChange={handleForm}/>
             <button onClick={sendPost}>제출</button>
         </div>
     );
