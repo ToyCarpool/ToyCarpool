@@ -29,13 +29,12 @@ export default function BoardEdit() {
     }
 
     useEffect(() => {
-        async function noUserRedirect() {
+        (async function noUserRedirect() {
             await fetchUserData();
             if (userData) {
                 return redirect("/api/member/loginForm");
             }
-        }
-        noUserRedirect()
+        })()
     }, [])
 
     const sendPost = async () => {

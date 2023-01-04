@@ -36,6 +36,5 @@ public class AuthenticationController {
         }else {
             return new ResponseEntity(null, HttpStatus.UNAUTHORIZED);
         }
-
     }
 }

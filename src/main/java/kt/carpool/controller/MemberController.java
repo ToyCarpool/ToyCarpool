@@ -6,7 +6,9 @@ import kt.carpool.domain.Member;
 import kt.carpool.dto.MemberDto;
 import kt.carpool.repository.MemberRepository;
 import kt.carpool.service.VerifyRecaptchaService;
+import kt.carpool.utils.MemberUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,12 +21,20 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/api/member")
 public class MemberController {
 
     private final MemberRepository memberRepository;
+
+    private final MemberUtils memberUtils;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    public MemberController(MemberRepository memberRepository, MemberUtils memberUtils, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.memberRepository = memberRepository;
+        this.memberUtils = memberUtils;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @GetMapping("/")
     public String index() {
@@ -41,8 +51,10 @@ public class MemberController {
     public String joinForm() { return "joinForm";}
     @GetMapping("/user")
     public @ResponseBody ResponseEntity member(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        System.out.println("principalDetails.getUsername() = " + principalDetails.getMember());
-        return new ResponseEntity(principalDetails.getMember().get().getBoards(), HttpStatus.OK);
+        Long id = principalDetails.getMember().get().getId();
+        Member memberPersist = memberRepository.findById(id).get();
+        MemberDto memberDto = memberUtils.toDto(memberPersist);
+        return new ResponseEntity(memberDto, HttpStatus.OK);
     }
 
     @PostMapping("/join")

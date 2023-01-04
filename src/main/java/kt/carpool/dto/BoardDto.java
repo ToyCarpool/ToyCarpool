@@ -25,7 +25,7 @@ public class BoardDto {
     @Builder
     public BoardDto(Long id, Member member, String title, Integer peopleNo, String startTime, Integer cost, String description, Boolean open) {
         this.id = id;
-        this.member_id = member != null ? member.getId() : -1;
+        this.member_id = member != null ? member.getId() : null;
         this.title = title;
         this.peopleNo = peopleNo;
         this.startTime = startTime;
