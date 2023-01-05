@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/api/member")
+//@RequestMapping("/api/member")
 public class MemberController {
 
     private final MemberRepository memberRepository;
@@ -36,19 +36,19 @@ public class MemberController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    @GetMapping("/")
-    public String index() {
-        System.out.println("123 = " + 123);
-        return "index";
-    }
+//    @GetMapping("/")
+//    public String index() {
+//        System.out.println("123 = " + 123);
+//        return "index";
+//    }
     @GetMapping("/admin")
     public @ResponseBody String admin() { return "admin";}
     @GetMapping("/manager")
     public @ResponseBody String manager() { return "manager";}
-    @GetMapping("/loginForm")
+    @GetMapping("/login")
     public String loginForm() { return "loginForm";}
-    @GetMapping("/joinForm")
-    public String joinForm() { return "joinForm";}
+//    @GetMapping("/joinForm")
+//    public String joinForm() { return "joinForm";}
     @GetMapping("/user")
     public @ResponseBody ResponseEntity member(@AuthenticationPrincipal PrincipalDetails principalDetails){
         Long id = principalDetails.getMember().get().getId();
