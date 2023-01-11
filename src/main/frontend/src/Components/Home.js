@@ -1,12 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import BoardList from "./BoardList";
 
 export default function Home() {
     return (
         <div>
-            <a href="/api/member/loginForm">로그인</a>
-            <Link to={"/SignUp"}>회원가입</Link>
-            <Link to={"/Board"}>게시판</Link>
+            <a className="text-3xl" href="/api/member/loginForm">로그인</a>
+            <a href="/api/member/loginForm">회원가입</a>
+            <BoardList></BoardList>
         </div>
     );
 }
