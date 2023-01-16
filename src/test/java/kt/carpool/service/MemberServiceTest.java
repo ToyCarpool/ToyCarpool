@@ -29,7 +29,6 @@ class MemberServiceTest {
                 .username("hello")
                 .password("3333")
                 .name("gyeonghak")
-                .department("solutionDevelop")
                 .build();
         //when
         Long saveId = memberService.signUp(member);
@@ -55,13 +54,11 @@ class MemberServiceTest {
                 .username("hello3")
                 .password("123")
                 .name("hani")
-                .department("gogo")
                 .build();
         Member member2 = new Member().builder()
                 .username("hello4")
                 .password("123")
                 .name("seulgi")
-                .department("red")
                 .build();
         memberRepository.save(member1);
         memberRepository.save(member2);

@@ -66,24 +66,6 @@ export default function BoardList() {
             <Card>{posts}</Card>
             <Card>{posts}</Card>
             <Card>{posts}</Card>
-            {/*<div className='board_table'>*/}
-            {/*    <div className='board_table--header'>*/}
-            {/*        <div className='board_table--header--num'>#</div>*/}
-            {/*        <div className='board_table--header--title'>제목</div>*/}
-            {/*        <div className='board_table--header--peopleNo'>인원 수</div>*/}
-            {/*        <div className='board_table--header--cost'>가격</div>*/}
-            {/*    </div>*/}
-            {/*    {posts.map(post=>{*/}
-            {/*        return(*/}
-            {/*            <div className='board_table--item' onClick={()=>handleClick(post.id)}>*/}
-            {/*                <div className='board_table--item--num'>{post.id}</div>*/}
-            {/*                <div className='board_table--item--title'>{post.title}</div>*/}
-            {/*                <div className='board_table--item--peopleNo'>{post.peopleNo}</div>*/}
-            {/*                <div className='board_table--item--cost'>{post.cost}</div>*/}
-            {/*            </div>*/}
-            {/*        )*/}
-            {/*    })}*/}
-            {/*</div>*/}
             <div className='button_box'>
             {makeButton()}
             </div>

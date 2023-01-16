@@ -18,9 +18,13 @@ public class BoardDto {
     private String title;
     private Integer peopleNo;
     private String startTime;
+    private String departure;
+    private String destination;
     private Integer cost;
     private String description;
     private Boolean open;
+    private Boolean negotiable;
+
 
     @Builder
     public BoardDto(Long id, Member member, String title, Integer peopleNo, String startTime, Integer cost, String description, Boolean open) {

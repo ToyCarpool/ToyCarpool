@@ -28,10 +28,9 @@ public class Member {
 
     private String email;
     private String role;
-
+    private Gender gender;
     private String provider;
     private String providerId;
-    private String department;
 
     @OneToMany(mappedBy = "member")
     private final List<Board> boards = new ArrayList<Board>();
@@ -41,7 +40,7 @@ public class Member {
 
 
     @Builder
-    public Member(String username, String password, String name, String email, String role, String provider, String providerId, String department,Timestamp createDate) {
+    public Member(String username, String password, String name, String email, String role, String provider, String providerId,Timestamp createDate, Gender gender) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -49,8 +48,8 @@ public class Member {
         this.role = role;
         this.provider = provider;
         this.providerId = providerId;
-        this.department = department;
         this.createDate = createDate;
+        this.gender = gender;
     }
 
 }

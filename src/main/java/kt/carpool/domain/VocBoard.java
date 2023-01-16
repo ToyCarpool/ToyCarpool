@@ -13,9 +13,7 @@ import javax.persistence.*;
 public class VocBoard {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Long user_id;
-
     private String title;
     private String description;
     private Boolean open;

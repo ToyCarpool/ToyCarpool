@@ -22,7 +22,6 @@ class MemberUtilsTest {
         Member entity = new Member().builder()
                 .password("123")
                 .username("cho")
-                .department("AICC구독솔루션팀")
                 .name("조영래")
                 .build();
 
@@ -44,7 +43,6 @@ class MemberUtilsTest {
     void entity변환() {
         MemberDto dto = new MemberDto().builder()
                 .username("cho")
-                .department("AICC구독솔루션팀")
                 .name("조영래")
                 .build();
 

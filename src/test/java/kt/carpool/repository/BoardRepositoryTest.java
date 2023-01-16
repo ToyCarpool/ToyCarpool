@@ -26,7 +26,6 @@ class BoardRepositoryTest {
     public void save() {
         Member member = new Member().builder()
                 .name("cho")
-                .department("AICC구독솔루션팀")
                 .username("cho")
                 .password("1234")
                 .build();

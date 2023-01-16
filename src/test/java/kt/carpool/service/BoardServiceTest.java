@@ -31,7 +31,6 @@ class BoardServiceTest {
         Member member = new Member().builder()
                 .password("123")
                 .username("cho")
-                .department("AICC구독솔루션팀")
                 .name("조영래")
                 .build();
         memberRepository.save(member);
@@ -55,7 +54,6 @@ class BoardServiceTest {
         Member member = new Member().builder()
                 .password("123")
                 .username("cho")
-                .department("AICC구독솔루션팀")
                 .name("조영래")
                 .build();
         memberRepository.save(member);
@@ -98,7 +96,6 @@ class BoardServiceTest {
         Member member = new Member().builder()
                 .password("123")
                 .username("cho")
-                .department("AICC구독솔루션팀")
                 .name("조영래")
                 .build();
         memberRepository.save(member);

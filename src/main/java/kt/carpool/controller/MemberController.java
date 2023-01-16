@@ -59,16 +59,7 @@ public class MemberController {
 
     @PostMapping("/join")
     public String join(MemberDto memberDto){
-        Member member = Member.builder() // 여기서 new가 왜 안되지..?
-                .username(memberDto.getUsername())
-                .password(bCryptPasswordEncoder.encode(memberDto.getPassword()))
-                .name(memberDto.getName())
-                .email(memberDto.getEmail())
-                .role(memberDto.getRole())
-                .provider(memberDto.getProvider())
-                .providerId(memberDto.getProviderId())
-                .department(memberDto.getDepartment())
-                .build();
+        Member member = memberUtils.toEntity(memberDto);
         memberRepository.save(member);
         return "redirect:/api/member/loginForm";
     }

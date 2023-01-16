@@ -14,7 +14,6 @@ public class MemberUtils {
         return new Member().builder()
                 .username(dto.getUsername())
                 .name(dto.getName())
-                .department(dto.getDepartment())
                 .build();
     }
     public MemberDto toDto(Member entity) {
