@@ -39,9 +39,6 @@ public class BoardController {
     }
 
 
-    ModelMapper modelMapper = new ModelMapper();
-
-
     @GetMapping("/list")
     public ResponseEntity getList(Pageable pageable){
 

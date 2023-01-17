@@ -19,7 +19,7 @@ export default function BoardList() {
     const makeButton = () => {
         let arr = []
         for (let i = 0; i < pageCount; i++){
-            arr.push(<button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={pageLoad} value={i+1}> {i+1} </button>)
+            arr.push(<button key={i} className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={pageLoad} value={i+1}> {i+1} </button>)
         }
         return arr 
     }
@@ -33,7 +33,7 @@ export default function BoardList() {
             const response = await axios.get(`api/board/list?page=${page-1}&size=${size}`)
             setPosts(response.data.content)
             setPageCount(response.data.totalPages)
-            console.log(response.data)
+            // console.log(response.data)
         } catch(e) {
             console.log(e)
         }
@@ -59,13 +59,11 @@ export default function BoardList() {
 
     return (
         <div className='board_box'>
-            <Card>{posts}</Card>
-            <Card>{posts}</Card>
-            <Card>{posts}</Card>
-            <Card>{posts}</Card>
-            <Card>{posts}</Card>
-            <Card>{posts}</Card>
-            <Card>{posts}</Card>
+            {
+                posts.map((post) => {
+                    return (<Card key={post.id} post={post}/>)
+                })
+            }
             <div className='button_box'>
             {makeButton()}
             </div>
