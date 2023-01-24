@@ -5,6 +5,7 @@ import kt.carpool.config.auth.PrincipalDetails;
 import kt.carpool.domain.Member;
 import kt.carpool.dto.MemberDto;
 import kt.carpool.repository.MemberRepository;
+import kt.carpool.service.MemberService;
 import kt.carpool.service.VerifyRecaptchaService;
 import kt.carpool.utils.MemberUtils;
 import lombok.RequiredArgsConstructor;
@@ -21,19 +22,20 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Controller
-//@RequestMapping("/api/member")
 public class MemberController {
 
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     private final MemberUtils memberUtils;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public MemberController(MemberRepository memberRepository, MemberUtils memberUtils, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public MemberController(MemberRepository memberRepository, MemberUtils memberUtils, BCryptPasswordEncoder bCryptPasswordEncoder, MemberService memberService) {
         this.memberRepository = memberRepository;
         this.memberUtils = memberUtils;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.memberService = memberService;
     }
 
 //    @GetMapping("/")
@@ -47,6 +49,7 @@ public class MemberController {
     public @ResponseBody String manager() { return "manager";}
     @GetMapping("/login")
     public String loginForm() { return "loginForm";}
+//    @PostMapping
 //    @GetMapping("/joinForm")
 //    public String joinForm() { return "joinForm";}
     @GetMapping("/user")
@@ -59,9 +62,16 @@ public class MemberController {
 
     @PostMapping("/join")
     public String join(MemberDto memberDto){
+        String encodedPassword = bCryptPasswordEncoder.encode(memberDto.getPassword());
+        memberDto.setPassword(encodedPassword);
         Member member = memberUtils.toEntity(memberDto);
-        memberRepository.save(member);
-        return "redirect:/api/member/loginForm";
+
+        if (memberService.signUp(member)==-1) {
+            return "redirect:/login";
+        } else {
+            memberRepository.save(member);
+            return "redirect:/login";
+        }
     }
 
     @ResponseBody

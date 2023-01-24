@@ -4,7 +4,17 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        'header':'10vh',
+        'cardlist':'75vw',
+        'card':'20vw'
+      },
+      width: {
+        'cardlist':'75vw',
+        'card':'20vw'
+      }
+    },
   },
   plugins: [],
 }

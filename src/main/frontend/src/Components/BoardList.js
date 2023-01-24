@@ -8,13 +8,6 @@ export default function BoardList() {
     const [posts, setPosts] = useState(null)
     const [page, setPage] = useState(1) 
     const [pageCount, setPageCount] = useState(null)
-    const [userData, setUserData] = useState(null)
-    
-    const navigate = useNavigate()
-
-    const handleClick = (id) => {
-      navigate(`${id}`)
-    };
 
     const makeButton = () => {
         let arr = []
@@ -38,14 +31,9 @@ export default function BoardList() {
             console.log(e)
         }
     }
-    const fetchUserData = async () => {
-        const userRes = await getUser()
-        setUserData(userRes)
-    }
 
     useEffect(() => {
         fetchData(page, 9)
-        fetchUserData()
     }, [])
 
 
@@ -58,16 +46,15 @@ export default function BoardList() {
     }
 
     return (
-        <div className='board_box'>
+        <div className='flex flex-wrap w-cardlist justify-evenly items-start'>
             {
                 posts.map((post) => {
                     return (<Card key={post.id} post={post}/>)
                 })
             }
-            <div className='button_box'>
-            {makeButton()}
+            <div className='flex justify-center w-full'>
+                {makeButton()}
             </div>
-            {userData && <div onClick={()=>navigate("/Board/edit")}>글쓰기</div>}
         </div>
     );
 }

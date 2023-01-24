@@ -1,6 +1,7 @@
 package kt.carpool.dto;
 
 import kt.carpool.domain.Board;
+import kt.carpool.domain.Gender;
 import kt.carpool.domain.Member;
 import kt.carpool.repository.MemberRepository;
 import lombok.*;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class BoardDto {
     private Long id;
     private Long member_id;
+    private Gender writer_gender;
     private String title;
     private Integer peopleNo;
     private String startTime;
@@ -27,14 +29,19 @@ public class BoardDto {
 
 
     @Builder
-    public BoardDto(Long id, Member member, String title, Integer peopleNo, String startTime, Integer cost, String description, Boolean open) {
+    public BoardDto(Long id, Member member, Gender writer_gender, String title, Integer peopleNo, String startTime, String departure, Integer cost, String destination, String description, Boolean open) {
         this.id = id;
         this.member_id = member != null ? member.getId() : null;
         this.title = title;
         this.peopleNo = peopleNo;
         this.startTime = startTime;
         this.cost = cost;
+        this.departure = departure;
+        this.destination = destination;
         this.description = description;
         this.open = open;
+        this.writer_gender = writer_gender;
     }
+
+
 }

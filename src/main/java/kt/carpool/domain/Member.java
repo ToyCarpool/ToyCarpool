@@ -28,6 +28,7 @@ public class Member {
 
     private String email;
     private String role;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private String provider;
     private String providerId;

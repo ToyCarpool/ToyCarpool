@@ -32,7 +32,7 @@ public class WebSecurityConfig {
                                 .anyRequest().permitAll()
                                 .and()
                                 .formLogin()
-                                .loginPage("/api/member/loginForm")
+                                .loginPage("/login")
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/");
                     } catch (Exception e) {

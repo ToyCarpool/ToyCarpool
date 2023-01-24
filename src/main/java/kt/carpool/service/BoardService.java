@@ -44,8 +44,11 @@ public class BoardService {
                 .cost(m.getCost())
                 .peopleNo(m.getPeopleNo())
                 .startTime(m.getStartTime())
+                .departure(m.getDeparture())
+                .destination(m.getDestination())
                 .description(m.getDescription())
                 .open(m.getOpen())
+                .writer_gender(m.getMember().getGender())
                 .build());
         System.out.println("boardDtos.getContent().toString() = " + boardDtos.getContent().toString());
         return boardDtos;

@@ -27,6 +27,9 @@ public class BoardUtils {
                 .startTime(dto.getStartTime())
                 .cost(dto.getCost())
                 .description(dto.getDescription())
+                .departure(dto.getDeparture())
+                .destination(dto.getDestination())
+                .negotiable(dto.getNegotiable())
                 .open(dto.getOpen())
                 .build();
         return entity;
